@@ -1,10 +1,10 @@
-package com.td2.student_api;
+package com.td.student_api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApplicationTests {
+class StudentApiApplicationTests {
 
 	@Test
 	void contextLoads() {
