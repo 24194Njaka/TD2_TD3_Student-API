@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -26,6 +27,26 @@ public class StudentController {
     public ResponseEntity<List<Student>> addStudent(@RequestBody List<Student> newStudents) {
         return ResponseEntity.ok(studentServer.addStudents(newStudents));
 
+    }
+    @GetMapping("/students")
+    public ResponseEntity <?> getStudents( @RequestHeader ("Accept") String accept) {
+        if (accept.equals("text/plain")) {
+            String names = studentServer.getStudents()
+                    .stream()
+                    .map(student -> student.getFirstName()+" "+student.getLastName())
+                    .collect(Collectors.joining(", "));
+
+            return ResponseEntity.ok()
+                    .header("content-type", "text/plain")
+                    .body(names);
+        } else  {
+            return ResponseEntity
+                    .status(415)
+                    .body("format non supportée");
+
+
+
+        }
     }
 
 }
