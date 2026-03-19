@@ -28,7 +28,7 @@ public class StudentController {
         return ResponseEntity.ok(studentServer.addStudents(newStudents));
 
     }
-    @GetMapping("/students")
+    @GetMapping(value = "/students", produces = {"text/plain", "application/json"})
     public ResponseEntity <?> getStudents( @RequestHeader ("Accept") String accept) {
         if (accept.equals("text/plain")) {
             String names = studentServer.getStudents()
