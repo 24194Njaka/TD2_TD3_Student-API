@@ -1,11 +1,12 @@
 package com.td.student_api.controller;
 
+import com.td.student_api.entity.Student;
 import com.td.student_api.server.StudentServer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -27,5 +28,19 @@ public class StudentController {
 
         }
 
+    }
+
+    @PostMapping("/students")
+    public ResponseEntity<?> addStudent(@RequestBody List<Student> newStudents) {
+        try{
+            List<Student> result = studentServer.addStudents(newStudents);
+            return ResponseEntity.status(HttpStatus.CREATED).body(result);
+
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("erruer servuer : "  + e.getMessage());
+
+        }
     }
 }
